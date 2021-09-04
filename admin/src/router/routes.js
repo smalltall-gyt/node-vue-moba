@@ -12,6 +12,11 @@ export default [
         path: 'category/list',
         name: 'CategoryList',
         component: () => import('@/views/CategoryList.vue')
+      },
+      {
+        path: 'category/edit/:id',
+        name: 'editCategory',
+        component: () => import('@/views/CategoryEdit.vue')
       }
     ]
   }

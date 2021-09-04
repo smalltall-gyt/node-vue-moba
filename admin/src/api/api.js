@@ -15,3 +15,25 @@ export async function getCategory () {
     method: 'GET'
   })
 }
+// 根据id获取分类详情
+export async function getCategoryById (categoryId) {
+  return await axios({
+    url: `/category/${categoryId}`,
+    method: 'GET'
+  })
+}
+// 修改分类
+export async function updateCategory (categoryId, data) {
+  return await axios({
+    url: `/category/${categoryId}`,
+    method: 'PUT',
+    data
+  })
+}
+// 删除分类
+export async function deleteCategory (categoryId) {
+  return await axios({
+    url: `/category/${categoryId}`,
+    method: 'DELETE'
+  })
+}
