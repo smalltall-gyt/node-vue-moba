@@ -17,6 +17,21 @@ export default [
         path: 'category/edit/:id',
         name: 'editCategory',
         component: () => import('@/views/CategoryEdit.vue')
+      },
+      {
+        path: 'equip/add',
+        name: 'addEquip',
+        component: () => import('@/views/EquipEdit.vue')
+      },
+      {
+        path: 'equip/list',
+        name: 'equipList',
+        component: () => import('@/views/EquipList.vue')
+      },
+      {
+        path: 'equip/edit/:id',
+        name: 'editEquip',
+        component: () => import('@/views/EquipEdit.vue')
       }
     ]
   }
