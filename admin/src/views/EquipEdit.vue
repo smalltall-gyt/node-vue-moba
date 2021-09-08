@@ -73,7 +73,8 @@ export default {
     // 处理文件上传成功
     handleAvatarSuccess (res, file) {
       console.log(file)
-      this.imageUrl = window.URL.createObjectURL(file.raw)
+      this.imageUrl = file.response.url
+      console.log(this.imageUrl)
     }
   },
   created () {

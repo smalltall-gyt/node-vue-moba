@@ -32,6 +32,21 @@ export default [
         path: 'equip/edit/:id',
         name: 'editEquip',
         component: () => import('@/views/EquipEdit.vue')
+      },
+      {
+        path: '/hero/list',
+        name: 'heroList',
+        component: () => import('@/views/HeroList.vue')
+      },
+      {
+        path: '/hero/add',
+        name: 'addHero',
+        component: () => import('@/views/HeroEdit.vue')
+      },
+      {
+        path: '/hero/edit/:id',
+        name: 'editHero',
+        component: () => import('@/views/HeroEdit.vue')
       }
     ]
   }
