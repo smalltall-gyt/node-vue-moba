@@ -2,7 +2,9 @@
   <div class="hero-edit-container">
     <h1 class="title">{{$route.params.id ? '编辑' : '新建'}}英雄</h1>
     <el-form label-width="80px" @submit.native.prevent="submit">
-      <el-form-item label="英雄名称">
+      <el-tabs v-model="activeName">
+        <el-tab-pane label="基础信息" name="base">
+          <el-form-item label="英雄名称">
         <el-input v-model="heroName"></el-input>
       </el-form-item>
       <el-form-item label="英雄称号">
@@ -69,6 +71,38 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
+        </el-tab-pane>
+        <el-tab-pane label="技能" name="skills">
+          <el-button type="text" @click="addSkills"><i class="el-icon-plus"></i>添加技能</el-button>
+          <el-row type="flex" class="el-row-flex">
+            <el-col :md="12" v-for="(item, index) in skills" :key="index" class="el-cols">
+              <el-form-item label="技能名称">
+                <el-input v-model="item.name"></el-input>
+              </el-form-item>
+              <el-form-item label="图标">
+                <el-upload
+                  class="avatar-uploader"
+                  :action="http.defaults.baseURL + '/upload'"
+                  :show-file-list="false"
+                  :on-success="res => $set(item, 'icon', res.url)"
+                >
+                  <img v-if="item.icon" :src="item.icon" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+              </el-form-item>
+              <el-form-item label="技能描述">
+                <el-input type="textarea" v-model="item.description"></el-input>
+              </el-form-item>
+              <el-form-item label="小提示">
+                <el-input type="textarea" v-model="item.tips"></el-input>
+              </el-form-item>
+              <el-form-item label="操作">
+                <el-button type="danger" @click="deleteSkill(index)">删除</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-tab-pane>
+      </el-tabs>
       <el-form-item class="submit">
         <el-button type="primary" class="add-btn" native-type="submit">立即添加</el-button>
       </el-form-item>
@@ -106,7 +140,9 @@ export default {
       usageTips: '', // 使用技巧
       battleTips: '', // 对抗技巧
       teamTips: '', // 团战思路
-      http: axios
+      skills: [], // 技能列表
+      http: axios,
+      activeName: 'base'
     }
   },
   methods: {
@@ -124,7 +160,8 @@ export default {
             equips2: this.equips2,
             usageTips: this.usageTips,
             battleTips: this.battleTips,
-            teamTips: this.teamTips
+            teamTips: this.teamTips,
+            skills: this.skills
           })
         } else {
           res = await addHero({
@@ -137,7 +174,8 @@ export default {
             equips2: this.equips2,
             usageTips: this.usageTips,
             battleTips: this.battleTips,
-            teamTips: this.teamTips
+            teamTips: this.teamTips,
+            skills: this.skills
           })
         }
         console.log(res)
@@ -164,6 +202,7 @@ export default {
       this.usageTips = data.data.usageTips
       this.battleTips = data.data.battleTips
       this.teamTips = data.data.teamTips
+      this.skills = data.data.skills
     },
     // 处理文件上传成功
     handleAvatarSuccess (res, file) {
@@ -178,6 +217,24 @@ export default {
     async fetchEquips () {
       const res = await getEquip()
       this.equipOptions = res.data
+    },
+    // 添加英雄技能
+    addSkills () {
+      this.skills.push({})
+    },
+    // 删除英雄技能
+    deleteSkill (index) {
+      this.$confirm('此操作将永久删除该技能, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+        this.skills.splice(index, 1)
+      }).catch(() => {})
     }
   },
   created () {
@@ -202,6 +259,7 @@ export default {
       this.usageTips = ''
       this.battleTips = ''
       this.teamTips = ''
+      this.skills = []
     }
   }
 }
@@ -252,5 +310,18 @@ export default {
     /deep/ .el-form-item__content {
       margin-left: 0 !important;
     }
+  }
+  .el-icon-plus {
+    margin-right: 5px;
+  }
+  .el-row-flex {
+    flex-wrap: wrap;
+    /deep/ .el-col {
+      flex-shrink: 0;
+      flex-basis: 50%;
+    }
+  }
+  .el-cols {
+    margin-bottom: 60px;
   }
 </style>
