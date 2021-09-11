@@ -1,7 +1,7 @@
 <template>
-  <div class="hero-list-container">
+  <div class="category-list-container">
      <el-table
-      :data="heroList"
+      :data="articleList"
       style="width: 100%">
       <el-table-column
         prop="_id"
@@ -9,22 +9,9 @@
         >
       </el-table-column>
       <el-table-column
-        prop="name"
-        label="英雄名称"
-        >
-      </el-table-column>
-      <el-table-column
         prop="title"
-        label="英雄称号"
-      >
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="英雄图标"
+        label="文章标题"
         >
-        <template slot-scope="scope">
-          <img :src="scope.row.icon" height="50px" alt="">
-        </template>
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
@@ -42,7 +29,7 @@
 </template>
 
 <script>
-import { getHero, deleteHero } from '@/api/heroApi'
+import { getArticle, deleteArticle } from '@/api/articleApi'
 
 export default {
   created () {
@@ -50,33 +37,31 @@ export default {
   },
   data () {
     return {
-      heroList: []
+      articleList: []
     }
   },
   methods: {
     async getData () {
-      const res = await getHero()
-      console.log(res)
-      this.heroList = res.data
+      const res = await getArticle()
+      this.articleList = res.data
     },
     handleEdit (index) {
-      this.$router.push(`/hero/edit/${this.heroList[index]._id}`)
-      console.log('修改', index)
+      this.$router.push(`/article/edit/${this.articleList[index]._id}`)
     },
     handleDelete (index) {
-      this.$confirm(`此操作将永久删除英雄"${this.heroList[index].name}", 是否继续?`, '提示', {
+      this.$confirm(`此操作将永久删除分类"${this.articleList[index].title}", 是否继续?`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async () => {
         // 发送请求
-        await deleteHero(this.heroList[index]._id)
+        await deleteArticle(this.articleList[index]._id)
         this.$message({
           type: 'success',
           message: '删除成功!'
         })
-        this.heroList = this.heroList.filter((item) => {
-          return item._id !== this.heroList[index]._id
+        this.articleList = this.articleList.filter((item) => {
+          return item._id !== this.articleList[index]._id
         })
       }).catch(() => {})
       console.log('删除', index)

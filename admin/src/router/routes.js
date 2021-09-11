@@ -47,6 +47,36 @@ export default [
         path: '/hero/edit/:id',
         name: 'editHero',
         component: () => import('@/views/HeroEdit.vue')
+      },
+      {
+        path: '/article/add',
+        name: 'addArticle',
+        component: () => import('@/views/ArticleEdit.vue')
+      },
+      {
+        path: '/article/list',
+        name: 'articleList',
+        component: () => import('@/views/ArticleList.vue')
+      },
+      {
+        path: '/article/edit/:id',
+        name: 'editArticle',
+        component: () => import('@/views/ArticleEdit.vue')
+      },
+      {
+        path: '/advertisement/add',
+        name: 'addAdvertisement',
+        component: () => import('@/views/AdvertisementEdit.vue')
+      },
+      {
+        path: '/advertisement/list',
+        name: 'advertisementList',
+        component: () => import('@/views/AdvertisementList.vue')
+      },
+      {
+        path: '/advertisement/edit/:id',
+        name: 'editAdvertisement',
+        component: () => import('@/views/AdvertisementEdit.vue')
       }
     ]
   }
