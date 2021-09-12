@@ -77,7 +77,30 @@ export default [
         path: '/advertisement/edit/:id',
         name: 'editAdvertisement',
         component: () => import('@/views/AdvertisementEdit.vue')
+      },
+      {
+        path: '/admin/add',
+        name: 'addAdmin',
+        component: () => import('@/views/admin/AdminEdit.vue')
+      },
+      {
+        path: '/admin/list',
+        name: 'adminList',
+        component: () => import('@/views/admin/AdminList.vue')
+      },
+      {
+        path: '/admin/edit/:id',
+        name: 'editAdmin',
+        component: () => import('@/views/admin/AdminEdit.vue')
       }
     ]
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login/index.vue'),
+    meta: {
+      isPublic: true
+    }
   }
 ]

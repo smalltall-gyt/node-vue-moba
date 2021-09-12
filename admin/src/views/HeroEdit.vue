@@ -66,7 +66,9 @@
           class="avatar-uploader"
           :action="http.defaults.baseURL + '/upload'"
           :show-file-list="false"
-          :on-success="handleAvatarSuccess">
+          :on-success="handleAvatarSuccess"
+          :headers="{Authorization: 'Bearer ' + $store.state.userInfo.user_token}"
+        >
           <img v-if="imageUrl" :src="imageUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>

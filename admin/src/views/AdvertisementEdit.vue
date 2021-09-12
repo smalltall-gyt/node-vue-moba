@@ -18,6 +18,7 @@
                 :action="http.defaults.baseURL + '/upload'"
                 :show-file-list="false"
                 :on-success="res => $set(item, 'image', res.url)"
+                :headers="{Authorization: 'Bearer ' + $store.state.userInfo.user_token}"
               >
                 <img v-if="item.image" :src="item.image" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>

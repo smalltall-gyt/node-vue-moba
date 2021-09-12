@@ -18,7 +18,7 @@
         label="装备图标"
         >
         <template slot-scope="scope">
-          <img :src="scope.row.icon" height="50px" alt="">
+          <img :src="scope.row.icon" height="35px" alt="">
         </template>
       </el-table-column>
       <el-table-column label="操作">
